@@ -1,7 +1,3 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Мастер
- * Date: 28.02.2016
- * Time: 15:59
- */
+$age = 38;
+echo "Мне " . $age . " лет";
