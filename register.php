@@ -1,28 +1,58 @@
 <?php
 
-var_dump($_POST);
-if ($_SERVER['REQUEST_METHOD']!= $_POST);
-   header("Location: /ancketa.html");
+$data = $_POST;
+print "<pre>";
+print_r($data);
 
-echo $_POST['name'];
-echo $_POST['profession'];
-echo $_POST['website'];
-echo $_POST['login'];
 
-$masterKeys = array('name', 'day', 'month', 'year', 'profession', 'website', 'login', 'password1', 'password2');
-$postKeys = array_keys($_POST);
-
-foreach ($masterKeys as $key=>$v){
-   if (in_array($key, $postKeys));
-      echo $key .'=>'. $v. "<br>";
-   else echo "Не все данные присутствуют в форме
-   <a href="/ancketa.html/"> Возврат к форме </a>" ;
-
-       $description .= $v;
-   else $humanData[$k] = $v;
-
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+   header("Location: ancketa.html");
 }
-$humanData['description'] = $description;
-file_put_contents("users.csv",implode(',',$humanData). "\r\n", FILE_APPEND);
+
+foreach($data as $key => $value) {
+   print $key.   "<br>";
+}
+
+$masterKeys = array( 'name', 'day', 'month', 'year', 'profession', 'website', 'login', 'password1', 'password2');
+$badKeys = array('password1', 'password2', 'password3'); // не пропускать ключи
+$badWords = array('xxx', 'suk', 'fuck');  // не пропускать значения
+
+//if(in_array('Alex', $data)){
+
+//}
+
+//if(array_key_exists('month', $data)){
+
+//}
+
+//foreach($masterKeys as $value) {
+   print $value . "<br>";
+//}
+   if (!isset($data[$value])) {
+//   if (!array_key_exists($value, $data)) {
+
+      print 'ne suchestvuet elementa `' . $value . "`<br>";
+   } else {
+      print $value ."-". $data[$value]. "<br>";
+   }
+//}
+
+foreach ($data as $key => $value) {
+//   var_dump($value);
+   if ($value == "") {
+      print 'pustoe znachenie dlya polia ' . $key;
+      echo " Не все данные присутствуют в форме <a href='ancketa.html'> Возврат к форме </a>"  . "<br>";;
+   }
+}
+
+
+
+//
+//       $description .= $v;
+//   else $humanData[$k] = $v;
+//
+//}
+$data['description'] = $description;
+file_put_contents("users.csv",implode(',',$data). "\r\n", FILE_APPEND);
 echo "Processed !!";
 exit();
